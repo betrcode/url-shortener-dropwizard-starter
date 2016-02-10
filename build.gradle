@@ -14,9 +14,12 @@ repositories {
     mavenCentral()
 }
 
+def dropwizardVersion  = '0.9.2'
+
 dependencies {
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
-    compile group: 'io.dropwizard', name: 'dropwizard-core', version: '0.9.2'
+    compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
+    compile group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: dropwizardVersion
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 

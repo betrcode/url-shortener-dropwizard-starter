@@ -1,20 +1,24 @@
 package com.klarna.urlshortener;
 
+import com.klarna.urlshortener.resources.HomeResource;
 import com.klarna.urlshortener.resources.ShortUrlResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 
 public class UrlShortenerApplication extends Application<UrlShortenerConfiguration> {
 
+  public final static String APP_NAME = "urlshortener";
+
   @Override
   public String getName() {
-    return "urlshortener";
+    return APP_NAME;
   }
 
   @Override
   public void initialize(Bootstrap<UrlShortenerConfiguration> bootstrap) {
-    //Nothing to do yet
+    enableViews(bootstrap);
   }
 
   @Override
@@ -23,8 +27,20 @@ public class UrlShortenerApplication extends Application<UrlShortenerConfigurati
     registerResources(environment);
   }
 
+  /**
+   * Registers endpoints to make them available to callers
+   */
   private void registerResources(Environment environment) {
+    environment.jersey().register(new HomeResource());
     environment.jersey().register(new ShortUrlResource());
+  }
+
+
+  /**
+   * Enables web pages
+   */
+  private void enableViews(Bootstrap bootstrap) {
+    bootstrap.addBundle(new ViewBundle<UrlShortenerConfiguration>());
   }
 
   /**
